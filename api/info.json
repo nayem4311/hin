@@ -1,8 +1,10 @@
 [
+
+    
     {
-        "id": "naruto",
-        "title": "Naruto",
-        "url": "https://anitaku.pe/category/naruto",
+        "id": "naruto-hindi",
+        "title": "Naruto Hindi",
+        "url": "https://ohxia.xyz/watch?anime=naruto-hindi",
         "genres": [
             "Action",
             "Comedy",
@@ -20,45 +22,18 @@
         "otherName": "ナルト",
         "episodes": [
             {
-                "id": "naruto-episode-1",
+                "id": "naruto-hindi-episode-1",
                 "number": 1,
-                "url": "https://anitaku.pe/naruto-episode-1"
+                "url": "https://ohxia.xyz/watch?anime=naruto-hindi-episode-1"
             },
             {
-                "id": "naruto-episode-2",
+                "id": "naruto-hindi-episode-2",
                 "number": 2,
-                "url": "https://anitaku.pe/naruto-episode-2"
-            }
-        ]
-    },
-    {
-        "id": "one-piece",
-        "title": "One Piece",
-        "url": "https://anitaku.pe/category/one-piece",
-        "genres": [
-            "Action",
-            "Adventure",
-            "Fantasy"
-        ],
-        "totalEpisodes": 1000,
-        "image": "https://gogocdn.net/images/anime/O/one-piece.jpg",
-        "releaseDate": "1999",
-        "description": "One Piece follows the adventures of Monkey D. Luffy and his pirate crew in their quest to find the legendary One Piece treasure.",
-        "subOrDub": "sub",
-        "type": "TV SERIES",
-        "status": "Ongoing",
-        "otherName": "ワンピース",
-        "episodes": [
-            {
-                "id": "one-piece-episode-1",
-                "number": 1,
-                "url": "https://anitaku.pe/one-piece-episode-1"
-            },
-            {
-                "id": "one-piece-episode-2",
-                "number": 2,
-                "url": "https://anitaku.pe/one-piece-episode-2"
+                "url": "https://ohxia.xyz/watch?anime=naruto-hindi-episode-3"
             }
         ]
     }
+
+
+    
 ]
