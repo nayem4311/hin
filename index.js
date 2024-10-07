@@ -22,7 +22,12 @@ app.get('/api/data', (req, res) => {
     const page = parseInt(req.query.page) || 1;  // Get the page number from query, default to 1
     const pageSize = 20;  // Number of items per page
 
-    serveJsonFile(filePath, (data) => {
+    fs.readFile(filePath, 'utf8', (err, jsonData) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error reading data' });
+        }
+        
+        const data = JSON.parse(jsonData);
         const totalResults = data.results.length;
         const totalPages = Math.ceil(totalResults / pageSize);
         const hasNextPage = page < totalPages;
@@ -47,7 +52,7 @@ app.get('/api/info', (req, res) => {
 });
 
 // Route for stream.json with episode retrieval
-app.get('/api/stream/:animeName/:episode', (req, res) => {
+app.get('/api/stream/:animeName/:episode?', (req, res) => {
     const { animeName, episode } = req.params;
     const filePath = path.join(process.cwd(), 'api', 'stream.json'); // Updated path reference
 
@@ -58,13 +63,23 @@ app.get('/api/stream/:animeName/:episode', (req, res) => {
 
         const data = JSON.parse(jsonData);
         
-        // Find the streaming link for the specific anime and episode
-        const streamData = data.find(item => item.id === animeName && item.episode === episode);
-        
-        if (streamData) {
-            res.json({ url: streamData.url });
+        // If episode is specified, return the specific episode link
+        if (episode) {
+            const streamData = data.find(item => item.id === animeName && item.episode === episode);
+            
+            if (streamData) {
+                res.json({ url: streamData.url });
+            } else {
+                res.status(404).json({ error: 'Episode not found' });
+            }
         } else {
-            res.status(404).json({ error: 'Episode not found' });
+            // If no episode is specified, return all episodes for the anime
+            const allEpisodes = data.filter(item => item.id === animeName);
+            if (allEpisodes.length > 0) {
+                res.json(allEpisodes);
+            } else {
+                res.status(404).json({ error: 'Anime not found' });
+            }
         }
     });
 });
