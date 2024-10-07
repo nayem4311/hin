@@ -16,28 +16,27 @@ const serveJsonFile = (filePath, res) => {
     });
 };
 
-
 // Route for data.json
 app.get('/api/data', (req, res) => {
-    const filePath = path.join(__dirname, 'api', 'data.json');
+    const filePath = path.join(process.cwd(), 'api', 'data.json'); // Updated path reference
     serveJsonFile(filePath, res);
 });
 
 // Route for info.json
 app.get('/api/info', (req, res) => {
-    const filePath = path.join(__dirname, 'api', 'info.json');
+    const filePath = path.join(process.cwd(), 'api', 'info.json'); // Updated path reference
     serveJsonFile(filePath, res);
 });
 
 // Route for stream.json
 app.get('/api/stream', (req, res) => {
-    const filePath = path.join(__dirname, 'api', 'stream.json');
+    const filePath = path.join(process.cwd(), 'api', 'stream.json'); // Updated path reference
     serveJsonFile(filePath, res);
 });
 
 // Route for watch.json
 app.get('/api/watch', (req, res) => {
-    const filePath = path.join(__dirname, 'api', 'watch.json');
+    const filePath = path.join(process.cwd(), 'api', 'watch.json'); // Updated path reference
     serveJsonFile(filePath, res);
 });
 
