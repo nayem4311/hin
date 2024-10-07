@@ -62,8 +62,8 @@ app.get('/api/data', (req, res) => {
 });
 
 // Route for info.json
-app.get('/api/info/:animeName', (req, res) => {
-    const animeName = req.params.animeName.split('-')[0]; // Get the anime name
+app.get('/api/info/:animeId', (req, res) => {
+    const animeId = req.params.animeId; // Get the anime ID directly
     const filePath = path.join(process.cwd(), 'api', 'info.json'); 
 
     fs.readFile(filePath, 'utf8', (err, jsonData) => {
@@ -80,8 +80,8 @@ app.get('/api/info/:animeName', (req, res) => {
             return res.status(500).json({ error: 'Error parsing info data' });
         }
 
-        // Find the anime info based on the animeName
-        const animeInfo = data.find(anime => anime.id === animeName);
+        // Find the anime info based on the animeId
+        const animeInfo = data.find(anime => anime.id === animeId);
         
         if (animeInfo) {
             res.json(animeInfo);
