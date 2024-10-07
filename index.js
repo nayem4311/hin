@@ -92,8 +92,8 @@ app.get('/api/info/:animeId', (req, res) => {
 });
 
 // Route for stream.json
-app.get('/api/stream/:animeWithEpisode?', (req, res) => {
-    const animeWithEpisode = req.params.animeWithEpisode; // Get the combined anime name and episode
+app.get('/api/stream/:animeName/:episode?', (req, res) => {
+    const { animeName, episode } = req.params;
     const filePath = path.join(process.cwd(), 'api', 'stream.json'); 
 
     fs.readFile(filePath, 'utf8', (err, jsonData) => {
@@ -108,20 +108,6 @@ app.get('/api/stream/:animeWithEpisode?', (req, res) => {
         } catch (parseError) {
             console.error(`Error parsing stream.json:`, parseError);
             return res.status(500).json({ error: 'Error parsing stream data' });
-        }
-
-        // Check if the combined parameter includes episode information
-        const episodeRegex = /episode-(\d+)/i; // Match 'episode-X' pattern
-        const episodeMatch = animeWithEpisode.match(episodeRegex);
-        let animeName;
-        let episode;
-
-        // If an episode is specified
-        if (episodeMatch) {
-            episode = episodeMatch[1]; // Extract the episode number
-            animeName = animeWithEpisode.replace(`-episode-${episode}`, ''); // Get the anime name without episode part
-        } else {
-            animeName = animeWithEpisode; // If no episode specified, use the whole name
         }
 
         // If episode is specified, return the specific episode link
@@ -144,8 +130,6 @@ app.get('/api/stream/:animeWithEpisode?', (req, res) => {
         }
     });
 });
-
-
 
 // Route for watch.json
 app.get('/api/watch', (req, res) => {
