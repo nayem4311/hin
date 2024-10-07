@@ -10,24 +10,40 @@ app.use(cors());  // Enable CORS for all routes
 const serveJsonFile = (filePath, res) => {
     fs.readFile(filePath, 'utf8', (err, jsonData) => {
         if (err) {
+            console.error(`Error reading file ${filePath}:`, err);
             return res.status(500).json({ error: 'Error reading data' });
         }
-        res.json(JSON.parse(jsonData));
+
+        try {
+            const parsedData = JSON.parse(jsonData);
+            res.json(parsedData);
+        } catch (parseError) {
+            console.error(`Error parsing JSON data from ${filePath}:`, parseError);
+            return res.status(500).json({ error: 'Error parsing data' });
+        }
     });
 };
 
 // Route for data.json with pagination
 app.get('/api/data', (req, res) => {
-    const filePath = path.join(process.cwd(), 'api', 'data.json'); // Updated path reference
+    const filePath = path.join(process.cwd(), 'api', 'data.json');
     const page = parseInt(req.query.page) || 1;  // Get the page number from query, default to 1
     const pageSize = 20;  // Number of items per page
 
     fs.readFile(filePath, 'utf8', (err, jsonData) => {
         if (err) {
+            console.error(`Error reading data.json:`, err);
             return res.status(500).json({ error: 'Error reading data' });
         }
-        
-        const data = JSON.parse(jsonData);
+
+        let data;
+        try {
+            data = JSON.parse(jsonData);
+        } catch (parseError) {
+            console.error(`Error parsing data.json:`, parseError);
+            return res.status(500).json({ error: 'Error parsing data' });
+        }
+
         const totalResults = data.results.length;
         const totalPages = Math.ceil(totalResults / pageSize);
         const hasNextPage = page < totalPages;
@@ -47,22 +63,29 @@ app.get('/api/data', (req, res) => {
 
 // Route for info.json
 app.get('/api/info', (req, res) => {
-    const filePath = path.join(process.cwd(), 'api', 'info.json'); // Updated path reference
+    const filePath = path.join(process.cwd(), 'api', 'info.json'); 
     serveJsonFile(filePath, res);
 });
 
-// Route for stream.json with episode retrieval
+// Route for stream.json
 app.get('/api/stream/:animeName/:episode?', (req, res) => {
     const { animeName, episode } = req.params;
-    const filePath = path.join(process.cwd(), 'api', 'stream.json'); // Updated path reference
+    const filePath = path.join(process.cwd(), 'api', 'stream.json'); 
 
     fs.readFile(filePath, 'utf8', (err, jsonData) => {
         if (err) {
+            console.error(`Error reading stream.json:`, err);
             return res.status(500).json({ error: 'Error reading stream data' });
         }
 
-        const data = JSON.parse(jsonData);
-        
+        let data;
+        try {
+            data = JSON.parse(jsonData);
+        } catch (parseError) {
+            console.error(`Error parsing stream.json:`, parseError);
+            return res.status(500).json({ error: 'Error parsing stream data' });
+        }
+
         // If episode is specified, return the specific episode link
         if (episode) {
             const streamData = data.find(item => item.id === animeName && item.episode === episode);
@@ -86,7 +109,7 @@ app.get('/api/stream/:animeName/:episode?', (req, res) => {
 
 // Route for watch.json
 app.get('/api/watch', (req, res) => {
-    const filePath = path.join(process.cwd(), 'api', 'watch.json'); // Updated path reference
+    const filePath = path.join(process.cwd(), 'api', 'watch.json'); 
     serveJsonFile(filePath, res);
 });
 
@@ -94,16 +117,5 @@ app.get('/api/watch', (req, res) => {
 app.get('/', (req, res) => {
     res.send('API is running');
 });
-
-// Helper function to serve JSON data with callback
-const serveJsonFileWithCallback = (filePath, callback) => {
-    fs.readFile(filePath, 'utf8', (err, jsonData) => {
-        if (err) {
-            return { error: 'Error reading data' };
-        }
-        const data = JSON.parse(jsonData);
-        callback(data);
-    });
-};
 
 module.exports = app;
