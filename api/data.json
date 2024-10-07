@@ -7,15 +7,6 @@
             "image": "https://gogocdn.net/images/anime/N/naruto.jpg",
             "releaseDate": "2002",
             "subOrDub": "sub"
-        },
-        {
-            "id": "attack-on-titan",
-            "title": "Attack on Titan",
-            "url": "https://anitaku.pe//category/attack-on-titan",
-            "image": "https://gogocdn.net/images/anime/A/attack-on-titan.jpg",
-            "releaseDate": "2013",
-            "subOrDub": "dub"
         }
-        // Add more anime objects as needed
     ]
 }
