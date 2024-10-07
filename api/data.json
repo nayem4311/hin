@@ -6,8 +6,17 @@
       "url": "https://ohxia.xyz/hindi-watch?anime=naruto-hindi",
       "image": "https://cdn.noitatnemucod.net/thumbnail/300x400/100/5db400c33f7494bc8ae96f9e634958d0.jpg",
       "releaseDate": "2002",
-      "subOrDub": "Hindi/ English",
+      "subOrDub": "Hindi",
       "episodeNumber": 220
+    },
+    {
+      "id": "naruto-shippuden",
+      "title": "Naruto Shippuden",
+      "url": "https://ohxia.xyz/hindi-watch?anime=naruto-shippuden-hindi",
+      "image": "https://cdn.noitatnemucod.net/thumbnail/300x400/100/9cbcf87f54194742e7686119089478f8.jpg",
+      "releaseDate": "2007",
+      "subOrDub": "Hindi",
+      "episodeNumber": 170
     },
     {
       "id": "kimetsu-no-yaiba-hindi",
@@ -15,7 +24,7 @@
       "url": "https://ohxia.xyz/hindi-watch?anime=kimetsu-no-yaiba-hindi",
       "image": "https://gogocdn.net/cover/kimetsu-no-yaiba.png",
       "releaseDate": "2019",
-      "subOrDub": "Hindi/ English",
+      "subOrDub": "Hindi",
         "episodeNumber": 26
     }
 ]
