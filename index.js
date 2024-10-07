@@ -6,16 +6,39 @@ const path = require('path');
 const app = express();
 app.use(cors());  // Enable CORS for all routes
 
-// Serve data from JSON file
-app.get('/api/data', (req, res) => {
-    const dataPath = path.join(__dirname, 'api', 'data.json');
-    
-    fs.readFile(dataPath, 'utf8', (err, jsonData) => {
+// Helper function to serve JSON data
+const serveJsonFile = (filePath, res) => {
+    fs.readFile(filePath, 'utf8', (err, jsonData) => {
         if (err) {
             return res.status(500).json({ error: 'Error reading data' });
         }
         res.json(JSON.parse(jsonData));
     });
+};
+
+
+// Route for data.json
+app.get('/api/data', (req, res) => {
+    const filePath = path.join(__dirname, 'api', 'data.json');
+    serveJsonFile(filePath, res);
+});
+
+// Route for info.json
+app.get('/api/info', (req, res) => {
+    const filePath = path.join(__dirname, 'api', 'info.json');
+    serveJsonFile(filePath, res);
+});
+
+// Route for stream.json
+app.get('/api/stream', (req, res) => {
+    const filePath = path.join(__dirname, 'api', 'stream.json');
+    serveJsonFile(filePath, res);
+});
+
+// Route for watch.json
+app.get('/api/watch', (req, res) => {
+    const filePath = path.join(__dirname, 'api', 'watch.json');
+    serveJsonFile(filePath, res);
 });
 
 // Default route
