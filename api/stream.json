@@ -1,17 +1,7 @@
 [
     {
-        "id": "spy-x-family",
+        "id": "naruto-hindi",
         "episode": "episode-1",
-        "url": "https://stream-link-for-episode-1.com"
-    },
-    {
-        "id": "spy-x-family",
-        "episode": "episode-2",
-        "url": "https://stream-link-for-episode-2.com"
-    },
-    {
-        "id": "another-anime",
-        "episode": "episode-1",
-        "url": "https://stream-link-for-another-anime-episode-1.com"
+        "url": "https://beta.awstream.net/watch?v=naruto-8211-episode-001&amp;lang=hin"
     }
 ]
