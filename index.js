@@ -92,8 +92,9 @@ app.get('/api/info/:animeId', (req, res) => {
 });
 
 // Route for stream.json
-app.get('/api/stream/:animeName/:episode?', (req, res) => {
-    const { animeName, episode } = req.params;
+app.get('/api/stream/:animeEpisode', (req, res) => {
+    const { animeEpisode } = req.params;
+    const [animeName, episode] = animeEpisode.split('-'); // Split the combined parameter into anime name and episode
     const filePath = path.join(process.cwd(), 'api', 'stream.json'); 
 
     fs.readFile(filePath, 'utf8', (err, jsonData) => {
@@ -130,6 +131,7 @@ app.get('/api/stream/:animeName/:episode?', (req, res) => {
         }
     });
 });
+
 
 // Route for watch.json
 app.get('/api/watch', (req, res) => {
