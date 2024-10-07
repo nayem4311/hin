@@ -62,9 +62,33 @@ app.get('/api/data', (req, res) => {
 });
 
 // Route for info.json
-app.get('/api/info', (req, res) => {
+app.get('/api/info/:animeName', (req, res) => {
+    const animeName = req.params.animeName.split('-')[0]; // Get the anime name
     const filePath = path.join(process.cwd(), 'api', 'info.json'); 
-    serveJsonFile(filePath, res);
+
+    fs.readFile(filePath, 'utf8', (err, jsonData) => {
+        if (err) {
+            console.error(`Error reading info.json:`, err);
+            return res.status(500).json({ error: 'Error reading info data' });
+        }
+
+        let data;
+        try {
+            data = JSON.parse(jsonData);
+        } catch (parseError) {
+            console.error(`Error parsing info.json:`, parseError);
+            return res.status(500).json({ error: 'Error parsing info data' });
+        }
+
+        // Find the anime info based on the animeName
+        const animeInfo = data.find(anime => anime.id === animeName);
+        
+        if (animeInfo) {
+            res.json(animeInfo);
+        } else {
+            res.status(404).json({ error: 'Anime not found' });
+        }
+    });
 });
 
 // Route for stream.json
